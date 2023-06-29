@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const Studentpage = ()=>{
+            const students = [{
+                name: "Amit",
+                Age : 20,
+                marks: 45
+            },{
+                name: "Deepak",
+                Age : 25,
+                marks: 30
+            },{
+                name: "pushpa",
+                Age : 30,
+                marks: 50
+            }]
+            return(
+                <>
+                <h1>Information of the student</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Student Age</th>
+                            <th>student marks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {students.map((student,index)=>(
+                            <tr key={index}>
+                                <td>{student.name}</td>
+                                <td>{student.Age}</td>
+                                <td>{student.marks}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                </>
+
+            )
+        }
+
+        function Carpage(){
+            const carDetails = [{
+                name: "BMW",
+                avg: 30,
+                fuel: "petrol",
+                img: "https://imgd.aeplcdn.com/0x0/n/cw/ec/96443/5-series-exterior-right-front-three-quarter-4.jpeg"
+            },
+            {
+                name: "mercedes",
+                avg: 28,
+                fuel: "Desial",
+                img: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mercedes-Benz/GLA/7269/1621948227508/front-left-side-47.jpg"
+            },
+            {
+                name: "Morris Garage",
+                avg: 25,
+                fuel: "CNG",
+                img : "https://gaadiwaadi.com/wp-content/uploads/2023/01/mg5-1-1068x723.jpg"
+            }]
+            return(
+                <>
+                <h1>Car Details</h1>
+                <table border="1px">
+                    <thead>
+                        <tr>
+                            <th>Car Name</th>
+                            <th>Car Avrage</th>
+                            <th>Car Fuel</th>
+                            <th>Car Image</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {carDetails.map((info,index)=>(
+                            <tr key = {index}>
+                                <td>{info.name}</td>
+                                <td>{info.avg}</td>
+                                <td>{info.fuel}</td>
+                                <td><img src={info.img} alt="" width="100px"/></td>
+                            </tr>
+
+                        ))}
+                          
+                          
+                    </tbody>
+                </table>
+                </>
+            )
+        }
+
+        function App(){
+            const showcar = true;
+            if(showcar){
+                return <Carpage />
+            }
+            return <Studentpage/>
+        }
+        const rootDetails = ReactDOM.createRoot(document.getElementById("root"));
+        rootDetails.render(<App/>)
+    </script>    
+</body>
+</html>
