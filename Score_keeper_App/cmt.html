@@ -1,0 +1,284 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <title>React App</title>
+  <style>
+    .App {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      align-items: center;
+    }
+
+    form {
+      width: 60%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    form div {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    button {
+      width: 120px;
+      padding-block: 5px;
+      cursor: pointer;
+    }
+
+    th,
+    td {
+      padding: 10px;
+    }
+
+    input {
+      padding: 5px;
+      font-size: 1.1rem;
+    }
+
+    .served {
+      background-color: red;
+    }
+
+    .dining {
+      background-color: lime;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    let customers = [];
+    const capacity = 25;
+    let seatsLeft = 25;
+    let countRef = React.createRef();
+    let guestNameRef = React.createRef();
+    let phoneNumberRef = React.createRef();
+    let id = Date.now();
+
+    // Create form submit handler here
+    const handlesubmit = (e) => {
+      e.preventDefault();
+      const name = guestNameRef.current.value;
+      const count = parseInt(countRef.current.value);
+      const number = phoneNumberRef.current.value;
+      let checkInTime = new Date().toLocaleTimeString();
+      if (count <= seatsLeft) {
+        customers.unshift({ id, name, count, number, isCheckout: false, checkInTime });
+        seatsLeft -= count
+        guestNameRef.current.value = '';
+        countRef.current.value = '';
+        phoneNumberRef.current.value = '';
+        rootElement.render(<App />);
+      }
+
+
+    }
+
+    const handlecheckOut = (id) => {
+      const index = customers.findIndex((customer) => customer.id === id)
+      if (index !== -1 && !customers[index].isCheckout) {
+        customers[index].isCheckout = true
+        customers[index].checkOutTime = new Date().toLocaleTimeString();
+        seatsLeft += customers[index].count
+        rootElement.render(<App />);
+      }
+    }
+
+    const handleDelete = (id) => {
+      const index = customers.findIndex((customer) => customer.id === id)
+      if (index !== -1) {
+        if (customers[index].isCheckout) {
+          customers.splice(index, 1)
+        } else {
+          seatsLeft += customers[index].count
+          customers.splice(index, 1)
+        }
+        rootElement.render(<App />);
+      }
+    }
+
+    const App = () => (
+      <div className="App" style={{ textAlign: "center" }}>
+        <div>
+          <h2>Total Capacity: {capacity}</h2>
+          <h2>Seats Left: {seatsLeft}</h2>
+        </div>
+
+        {/* Create a form here */}
+        <form onSubmit={handlesubmit}>
+          <input type="number" placeholder="Guest Count" ref={countRef} /><br />
+          <input type="text" placeholder="Primary Guest Name" ref={guestNameRef} /><br />
+          <input type="number" placeholder="Phone Number" ref={phoneNumberRef} /><br /><br />
+          <button>Add Entry</button>
+        </form>
+
+        {/* Complete table to show records of customers */}
+        <table border="1px" style={{ margin: "auto" }}>
+          <thead>
+            <tr>
+              <th>Count</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Check In</th>
+              <th>Check Out</th>
+              <th>Status</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            {customers.map((cutomer) => (
+              <tr key={cutomer.id}>
+                <td>{cutomer.count}</td>
+                <td>{cutomer.name}</td>
+                <td>{cutomer.number}</td>
+                <td>{cutomer.checkInTime}</td>
+                <td>{cutomer.checkOutTime}</td>
+                <td>{!cutomer.isCheckout ? <a onClick={() => handlecheckOut(cutomer.id)}>Check Out</a> : "served"}</td>
+                <td><a onClick={() => handleDelete(cutomer.id)}>Delete</a></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+
+    const rootElement = ReactDOM.createRoot(document.getElementById("root"));
+    rootElement.render(<App />);
+  </script>
+
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <title>React App</title>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    let customers = [];
+    const capacity = 25;
+    let seatsLeft = 25;
+    let countRef = React.createRef();
+    let guestNameRef = React.createRef();
+    let phoneNumberRef = React.createRef();
+    let id = Date.now()
+
+    // Create form submit handler here
+    const handlesubmit = (e) => {
+      e.preventDefault();
+      const name = guestNameRef.current.value;
+      const count = parseInt(countRef.current.value);
+      const number = phoneNumberRef.current.value;
+      let checkInTime = new Date().toLocaleTimeString();
+      if (count <= seatsLeft) {
+        customers.unshift({ id, name, count, number, isCheckOut: false, checkInTime });
+        seatsLeft -= count
+        guestNameRef.current.value = "";
+        countRef.current.value = "";
+        phoneNumberRef.current.value = "";
+        rootElement.render(<App />);
+
+      }
+
+    }
+
+    const handleChecout = (id) => {
+      const index = customers.findIndex((customer) => customer.id === id);
+      if (index !== -1 && !customers[index].isCheckOut) {
+        customers[index].isCheckOut = true;
+        customers[index].checkOutTime = new Date().toLocalTimeString();
+        seatsLeft += customers[index].count;
+        rootElement.render(<App />);
+
+      }
+    }
+
+    const handleDelete = (id) => {
+      const index = customers.findIndex((customer) => customer.id === id);
+      if (index !== -1) {
+        if (customers[index].isCheckOut) {
+          customers.splice(index, 1);
+        } else {
+          seatsLeft += customers[index].count;
+          customers.splice(index, 1);
+
+        }
+        rootElement.render(<App />);
+      }
+    }
+
+
+    const App = () => (
+      <div className="App" style={{ textAlign: "center" }}>
+        <div>
+          <h2>Total Capacity: {capacity}</h2>
+          <h2>Seats Left: {seatsLeft}</h2>
+        </div>
+
+        {/* Create a form here */}
+        <form onSubmit={handlesubmit}>
+          <input type="number" placeholder="Guest Count" ref={countRef} />
+          <input type="text" placeholder="Primary Guest Name" ref={guestNameRef} />
+          <input type="number" placeholder="Phone Number" ref={phoneNumberRef} />
+          <button>Add Entry</button>
+        </form>
+
+        {/* Complete table to show records of customers */}
+        <table border="1px" style={{ margin: "auto" }}>
+          <thead>
+            <tr>
+              <th>Count</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Check In</th>
+              <th>Check Out</th>
+              <th>Status</th>
+              <th>Remove Entry</th>
+            </tr>
+          </thead>
+          <tbody>
+            {customers.map((customer) => (
+              <tr key={customer.id}>
+                <td>{customer.count}</td>
+                <td>{customer.name}</td>
+                <td>{customer.number}</td>
+                <td>{customer.checkInTime}</td>
+                <td>{customer.checkOutTime}</td>
+                <td>{!customer.isCheckOut ? <a onClick={() => handleChecout(customer.id)}>Check Out</a> : "Served"}</td>
+                <td> <a onClick={() => handleDelete(customer.id)}>Delete</a> </td>
+
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+
+    const rootElement = ReactDOM.createRoot(document.getElementById("root"));
+    rootElement.render(<App />);
+  </script>
+
+</body>
+
+</html>
